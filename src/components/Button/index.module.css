@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #000;
+  font-size: 18px;
+  color: #fff;
+  transition: all ease-in-out 100ms;
+}
+
+.container:not(:disabled):hover {
+  transform: scale(1.01);
+}
+
+.container:not(:disabled):active {
+  transform: scale(0.99);
+}
+
+.container:disabled {
+  background-color: #aaa;
+  color: #ccc;
+}
