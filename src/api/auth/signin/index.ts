@@ -19,7 +19,7 @@ declare module "next-auth/jwt" {
   }
 }
 
-const auth_options: AuthOptions = {
+export const auth_options: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -39,7 +39,6 @@ const auth_options: AuthOptions = {
         const { email, password } = credentials;
 
         const user = await getUser(email, password);
-        console.log(user);
 
         if (!user) {
           console.error("존재하지 않는 이메일이거나 비밀번호가 틀립니다.");
@@ -82,7 +81,6 @@ const auth_options: AuthOptions = {
   jwt: {
     maxAge: 10,
     encode: (params) => {
-      console.log(params.secret);
       const token = jwt.sign(params.token ?? {}, params.secret);
 
       return token;
