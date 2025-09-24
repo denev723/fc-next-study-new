@@ -1,20 +1,19 @@
 import { fetchUserList } from "@/api/user";
 import { User } from "@/api/user/types";
 import { Suspense } from "@/components/Suspense";
-import {
-  useSuspenseQuery,
-  UseSuspenseQueryOptions,
-} from "@tanstack/react-query";
+import { useQuery, UseSuspenseQueryOptions } from "@tanstack/react-query";
 import { FC } from "react";
 
 const SuspenseTestMain: FC = () => {
-  const { data } = useSuspenseQuery(getUserListQueryOptions());
+  const { data } = useQuery(getUserListQueryOptions());
+
+  console.log(data);
 
   return (
     <main>
       Suspense Test
       <ul>
-        {data.map((item) => (
+        {data?.map((item) => (
           <li key={item.id}>{item.name}</li>
         ))}
       </ul>
@@ -24,15 +23,18 @@ const SuspenseTestMain: FC = () => {
 
 const SuspenseTestWithSuspense: FC = () => {
   return (
-    <Suspense>
-      <SuspenseTestMain />
-    </Suspense>
+    // <Suspense>
+    <SuspenseTestMain />
+    // </Suspense>
   );
 };
 
 export { SuspenseTestWithSuspense as SuspenseTestMain };
 
-function getUserListQueryOptions(): UseSuspenseQueryOptions<User[], Error> {
+export function getUserListQueryOptions(): UseSuspenseQueryOptions<
+  User[],
+  Error
+> {
   return {
     queryKey: ["user-list"],
     queryFn: async () => {
